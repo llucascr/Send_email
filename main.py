@@ -37,29 +37,45 @@ cor4 = '#f5bd07'
 # Criando a Janela
 janela = Tk()
 janela.title('E-mail Message')
-janela.geometry('800x500')
+janela.geometry('500x500')
 janela.config(bg=cor1)
+
+# Função 
+def obter():
+    to = entry_to.get()
+    subject = entry_subject.get()
+    message = text_message.get("1.0",'end-1c')
+    
+    print(to, subject, message)
+    
 
 # Title
 title = Label(janela, text='Send e-mail', font=('Arial Bold', 30), bg=cor1, fg=cor4)
 title.place(x=10, y=10)
 
-# Botão
-btn = Button(janela, text='Enviar e-mail', font=('Arial Bold', 13), bg=cor4, fg=cor3, width='16', command=send)
-btn.place(x=600, y=400)
+# To
+label_to = Label(janela, text='Destinatário', font=('Arial Bold', 20), bg=cor1, fg=cor2)
+label_to.place(x=20, y=75)
+
+entry_to = Entry(janela, font=('Arial Bold', 15))
+entry_to.place(x=20, y=120, width=400, height=30)
 
 # Subject
-label_subject = Label(janela, text='Subject', font=('Arial Bold', 20), bg=cor1, fg=cor2)
-label_subject.place(x=20, y=75)
+label_subject = Label(janela, text='Assunto', font=('Arial Bold', 20), bg=cor1, fg=cor2)
+label_subject.place(x=20, y=170)
 
-entrey_subject = Entry(janela, font=('Arial Bold', 15))
-entrey_subject.place(x=20, y=120, width=400, height=30)
+entry_subject = Entry(janela, font=('Arial Bold', 15))
+entry_subject.place(x=20, y=210, width=400, height=30)
 
-# From
-# label_from = Label(janela, text='From', font=('Arial Bold', 20), bg=cor1, fg=cor2)
-# label_from.place(x=20, y=170)
+# mensagem
+label_message = Label(janela, text='Mensagem', font=('Arial Bold', 20), bg=cor1, fg=cor2)
+label_message.place(x=20, y=260)
 
-# entrey_from = Entry(janela, font=('Arial Bold', 15))
-# entrey_from.place(x=20, y=210, width=400, height=30)
+text_message = Text(janela, font=('Arial Bold', 15))
+text_message.place(x=20, y=300, width=400, height=100)
+
+# Botão
+btn = Button(janela, text='Enviar e-mail', font=('Arial Bold', 13), bg=cor4, fg=cor3, width='16', command=obter)
+btn.place(x=300, y=440)
     
 janela.mainloop()
