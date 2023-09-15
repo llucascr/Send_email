@@ -1,4 +1,3 @@
-import os
 import smtplib
 from email.message import EmailMessage
 from tkinter import *
@@ -8,23 +7,9 @@ email = 'lucasdecamposranzani@gmail.com'
 
 with open ('senha.txt') as f:
     senha = f.readlines()
-    
     f.close
 
 senha_do_email = senha[0]
-
-msg = EmailMessage()
-msg['Subject'] = 'Enviando e-mail com Python'
-msg['From'] = 'lucasdecamposranzani@gmail.com'
-msg['To'] = 'lucasdecamposranzani@gmail.com'
-msg.set_content('Segue o relatório diário')
-
-# Enviando e-mail
-def send():
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-        smtp.login(email, senha_do_email)
-        smtp.send_message(msg)
-
 
 # TKINTER
 
@@ -41,12 +26,16 @@ janela.geometry('500x500')
 janela.config(bg=cor1)
 
 # Função 
-def obter():
-    to = entry_to.get()
-    subject = entry_subject.get()
-    message = text_message.get("1.0",'end-1c')
+msg = EmailMessage()
+def send():
+    msg['From'] = 'lucasdecamposranzani@gmail.com'
+    msg['To'] = entry_to.get()
+    msg['Subject'] = entry_subject.get()
+    msg.set_content(text_message.get("1.0",'end-1c'))
     
-    print(to, subject, message)
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+         smtp.login(email, senha_do_email)
+         smtp.send_message(msg)
     
 
 # Title
@@ -75,7 +64,7 @@ text_message = Text(janela, font=('Arial Bold', 15))
 text_message.place(x=20, y=300, width=400, height=100)
 
 # Botão
-btn = Button(janela, text='Enviar e-mail', font=('Arial Bold', 13), bg=cor4, fg=cor3, width='16', command=obter)
+btn = Button(janela, text='Enviar e-mail', font=('Arial Bold', 13), bg=cor4, fg=cor3, width='16', command=send)
 btn.place(x=300, y=440)
     
 janela.mainloop()
